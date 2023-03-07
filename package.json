@@ -1,0 +1,29 @@
+{
+  "name": "be_qlybenhvien",
+  "version": "1.0.0",
+  "description": "dự án quản lý bệnh viện",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "đỗ mạnh",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^3.1.1",
+    "nodemon": "^2.0.20",
+    "pg": "8.7.1",
+    "pg-hstore": "2.3.4",
+    "sequelize": "^6.28.0",
+    "sequelize-cli": "^6.6.0"
+  }
+}
