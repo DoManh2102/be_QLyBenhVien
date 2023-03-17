@@ -62,14 +62,14 @@ const createNewUserService = (data) => {
                     lastName,
                     address,
                     phoneNumber,
-                    gender: gender === '1' ? true : false,
-                    // image,
+                    image,
+                    gender,
                     roleId,
-                    // positionId
+                    positionId
                 })
                 resolve({
                     errCode: 0,
-                    message: 'Ok'
+                    message: 'Ok',
                 })
             }
         } catch (error) {
@@ -195,9 +195,13 @@ const editUserService = (data) => {
             })
             if (user) {
                 user.firstName = data.firstName;
+                user.lastName = data.lastName;
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
-                //
+                user.gender = data.gender
+                user.image = data.image
+                user.roleId = data.roleId
+                user.positionId = data.positionId
                 await user.save()
                 resolve({
                     errCode: 0,
@@ -223,3 +227,6 @@ module.exports = {
     deleteUserService,
     editUserService
 }
+
+
+
