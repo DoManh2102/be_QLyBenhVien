@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": "2102",
-    "database": "qly_benhvien",
+    "username": "qly_benhvien",
+    "password": "DoManh2102@",
+    "database": "qlybenhvien",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+07:00"
