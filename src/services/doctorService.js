@@ -47,7 +47,6 @@ const getAllDoctorService = () => {
 }
 
 const createDetailInfoDoctorService = (data) => {
-    console.log('data', data);
     return new Promise(async (resolve, reject) => {
         try {
             if (!data.doctorId || !data.contentHTML || !data.contentMarkdown) {
@@ -57,28 +56,33 @@ const createDetailInfoDoctorService = (data) => {
                 })
             }
             else {
-                //check doctorId is exist??
-                // const doctorIdIsExist = await Markdown_Editor.findOne({
-                //     where: { doctorId: data.doctorId }
-                // })
-                // if (doctorIdIsExist) {
-                //     resolve({
-                //         errCode: 2,
-                //         errMessage: 'Doctor info already exists'
-                //     });
-                // }
-                // else {
-                const createDetailtDoctor = await Markdown_Editor.create({
-                    contentHTML: data.contentHTML,
-                    contentMarkdown: data.contentMarkdown,
-                    description: data.description,
-                    doctorId: data.doctorId
+                // check doctorId is exist ??
+                const infoDoctor = await Markdown_Editor.findOne({
+                    where: { doctorId: data.doctorId }
                 })
-                resolve({
-                    errCode: 0,
-                    message: 'Save info doctor success!',
-                })
-                // }
+                if (infoDoctor) { //doctor đã tồn tại => thực hiện update                   
+                    infoDoctor.contentHTML = data.contentHTML;
+                    infoDoctor.contentMarkdown = data.contentMarkdown;
+                    infoDoctor.description = data.description;
+                    infoDoctor.contentHTML = data.contentHTML;
+                    await infoDoctor.save()
+                    resolve({
+                        errCode: 0,
+                        message: 'Update info doctor success!',
+                    })
+                }
+                else { // thực hiện create
+                    await Markdown_Editor.create({
+                        contentHTML: data.contentHTML,
+                        contentMarkdown: data.contentMarkdown,
+                        description: data.description,
+                        doctorId: data.doctorId
+                    })
+                    resolve({
+                        errCode: 0,
+                        message: 'Save info doctor success!',
+                    })
+                }
             }
         } catch (error) {
             reject(error)
@@ -101,14 +105,18 @@ const getDoctorByIdService = (id) => {
                     id
                 },
                 attributes: {
-                    exclude: ['password', 'image']
+                    exclude: ['password']
                 },
                 include: [
                     { model: Markdown_Editor, attributes: ['contentHTML', 'contentMarkdown', 'description'] },
                     { model: allCode, as: 'positionData', attributes: ['value_EN', 'value_VI'] },
-
                 ],
+                nest: true,
+                raw: true
             })
+            if (getDoctorById && getDoctorById.image) {
+                getDoctorById.image = new Buffer(getDoctorById.image, 'base64').toString('binary')
+            }
             resolve({
                 errCode: 0,
                 message: 'Ok',

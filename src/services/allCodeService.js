@@ -10,17 +10,17 @@ const getAllCodeService = (type) => {
                     }
                 })
                 resolve({
-                    error: '0',
+                    errCode: 0,
                     message: 'Ok',
-                    allCodeByType
+                    data: allCodeByType
                 })
             }
             else {
                 const getAllCode = await allCode.findAll()
                 resolve({
-                    error: '0',
+                    errCode: 0,
                     message: 'Ok',
-                    getAllCode
+                    data: getAllCode
                 })
             }
         } catch (error) {
