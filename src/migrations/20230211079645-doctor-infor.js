@@ -47,6 +47,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    'abc'
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Doctor_Infor');
