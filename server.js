@@ -35,5 +35,5 @@ app.listen(port, async () => {
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
-    console.log(`Backen listening on http://localhost:${port}`);
+    console.log(`Backend listening on http://localhost:${port}`);
 })
